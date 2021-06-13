@@ -6,7 +6,9 @@ import { Provider, ProviderSchema } from './entities/provider.entity';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Provider.name, schema: ProviderSchema }]),
+    MongooseModule.forFeature([
+      { name: Provider.name, schema: ProviderSchema },
+    ]),
   ],
   controllers: [ProvidersController],
   providers: [ProvidersService],

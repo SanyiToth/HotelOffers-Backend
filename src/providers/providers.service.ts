@@ -1,15 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProviderDto } from './dto/create-provider.dto';
 import { UpdateProviderDto } from './dto/update-provider.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Provider, ProviderDocument } from './entities/provider.entity';
 
 @Injectable()
 export class ProvidersService {
+  constructor(
+    @InjectModel(Provider.name)
+    private readonly providerModel: Model<ProviderDocument>,
+  ) {}
+
   create(createProviderDto: CreateProviderDto) {
-    return 'This action adds a new provider';
+    const createdProvider = new this.providerModel(createProviderDto);
+    return createdProvider.save();
   }
 
-  findAll() {
-    return `This action returns all providers`;
+  async findAll(): Promise<Provider[]> {
+    return await this.providerModel.find().exec();
   }
 
   findOne(id: number) {

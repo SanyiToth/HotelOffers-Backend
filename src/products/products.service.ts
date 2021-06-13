@@ -10,8 +10,7 @@ export class ProductsService {
   constructor(
     @InjectModel(Product.name)
     private readonly productModel: Model<ProductDocument>,
-  ) {
-  }
+  ) {}
 
   create(createProductDto: CreateProductDto) {
     const createdProduct = new this.productModel(createProductDto);
@@ -44,11 +43,18 @@ export class ProductsService {
     } else return { deleteCount: result.deletedCount };
   }
 
-  private async findProduct(id: string) {
+  private async findProduct(id: string, populated = true) {
     let product;
 
     try {
-      product = await this.productModel.findById(id).exec();
+      if (populated) {
+        product = await this.productModel
+          .findById(id)
+          .populate('provider')
+          .exec();
+      } else {
+        product = await this.productModel.findById(id).exec();
+      }
     } catch (error) {
       console.log('error', error);
       throw new NotFoundException('Could not find product!');
