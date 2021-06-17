@@ -30,6 +30,9 @@ export class Provider {
 
   @Prop({ type: AddressSchema })
   address: Address;
+
+  @Prop()
+  classification: number;
 }
 
 export const ProviderSchema = SchemaFactory.createForClass(Provider);
