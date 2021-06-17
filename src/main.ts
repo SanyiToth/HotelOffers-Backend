@@ -6,8 +6,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
 
   const config = new DocumentBuilder()
-    .setTitle('Covid360 backend')
-    .setDescription('The covid price comparator engine')
+    .setTitle('Hotel Offers backend')
+    .setDescription('The hotel top offers search engine')
     .setVersion('1.0')
     .addTag('')
     .build();
