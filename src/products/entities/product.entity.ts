@@ -9,7 +9,7 @@ export class RatingInfo extends Document {
   rating: number;
 
   @Prop({ required: true })
-  numberOfRating: number;
+  numberOfRatings: number;
 }
 
 export const RatingSchema = SchemaFactory.createForClass(RatingInfo);
@@ -40,8 +40,8 @@ export class Product {
   @Prop()
   price: number;
 
-  @Prop()
-  images: string;
+  @Prop({ type: [String]})
+  images: string[];
 
   @Prop()
   providerId: number;
