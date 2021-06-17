@@ -30,6 +30,24 @@ export class Provider {
 
   @Prop({ type: AddressSchema })
   address: Address;
+
+  @Prop()
+  classification: number;
+
+  @Prop()
+  email: string;
+
+  @Prop()
+  phone: string;
+
+  @Prop({ type: [String], default: [] })
+  paymentMethods: string[];
+
+  @Prop()
+  username: string;
+
+  @Prop()
+  password: string;
 }
 
 export const ProviderSchema = SchemaFactory.createForClass(Provider);
