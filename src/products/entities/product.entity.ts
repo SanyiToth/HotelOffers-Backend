@@ -1,7 +1,11 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Types, Schema as MongooseSchema } from "mongoose";
 
-
+export enum Status {
+  Active = 'Active',
+  Deactivated = 'Deactivated',
+  Archived = 'Archived',
+}
 
 @Schema()
 export class RatingInfo extends Document {
@@ -19,14 +23,16 @@ export type ProductDocument = Product & Document;
 @Schema()
 export class Product {
 
-  @Prop()
-  status: string;
+  @Prop({ enum: ['Active', 'Deactivated', 'Archived'] })
+  status: Status;
+
 
   @Prop({ required: true })
   heading: string;
 
   @Prop({ required: true })
-  details: string;
+  details: string
+  ;
 
   @Prop()
   startDate: Date;
@@ -35,7 +41,7 @@ export class Product {
   endDate: Date;
   
   @Prop()
-  availableOffers?: number;
+  availableOffers: number;
 
   @Prop()
   price: number;
