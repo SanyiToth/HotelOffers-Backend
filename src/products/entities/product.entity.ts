@@ -2,19 +2,20 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, Types, Schema as MongooseSchema } from "mongoose";
 
 export enum Status {
-  Active = 'Active',
-  Deactivated = 'Deactivated',
-  Archived = 'Archived',
+  Active = "Active",
+  Deactivated = "Deactivated",
+  Archived = "Archived",
 }
 
 
-export class DateInterval {
-  @Prop()
+export class DateInterval  {
+  @Prop({ type: Date })
   startDate: Date;
 
-  @Prop()
-  endDate: Date;
+  @Prop({ type:Date })
+  endDate:Date;
 }
+
 export const DateIntervalSchema = SchemaFactory.createForClass(DateInterval);
 
 @Schema()
@@ -33,7 +34,7 @@ export type ProductDocument = Product & Document;
 @Schema()
 export class Product {
 
-  @Prop({ enum: ['Active', 'Deactivated', 'Archived'] })
+  @Prop({ enum: ["Active", "Deactivated", "Archived"] })
   status: Status;
 
 
@@ -45,20 +46,20 @@ export class Product {
 
   @Prop({ type: DateIntervalSchema })
   dateInterval: DateInterval;
-  
+
   @Prop()
   availableOffers: number;
 
   @Prop()
   price: number;
 
-  @Prop({ type: [String]})
+  @Prop({ type: [String] })
   images: string[];
 
   @Prop()
   providerId: number;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Provider' })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: "Provider" })
   provider: Types.ObjectId;
 
   @Prop()
