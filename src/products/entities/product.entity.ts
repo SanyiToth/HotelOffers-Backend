@@ -7,27 +7,27 @@ export enum Status {
   Archived = "Archived",
 }
 
-
-export class DateInterval  {
+@Schema()
+export class DateInterval {
   @Prop({ type: Date })
   startDate: Date;
 
-  @Prop({ type:Date })
-  endDate:Date;
+  @Prop({ type: Date })
+  endDate: Date;
 }
 
 export const DateIntervalSchema = SchemaFactory.createForClass(DateInterval);
 
 @Schema()
-export class RatingInfo extends Document {
-  @Prop({ required: true, default: 0 })
+export class Rating {
+  @Prop({ required: true })
   rating: number;
 
-  @Prop({ required: true, default: 0 })
+  @Prop({ required: true })
   numberOfRatings: number;
 }
 
-export const RatingSchema = SchemaFactory.createForClass(RatingInfo);
+export const RatingSchema = SchemaFactory.createForClass(Rating);
 
 export type ProductDocument = Product & Document;
 
@@ -36,7 +36,6 @@ export class Product {
 
   @Prop({ enum: ["Active", "Deactivated", "Archived"] })
   status: Status;
-
 
   @Prop({ required: true })
   heading: string;
@@ -69,7 +68,7 @@ export class Product {
   tags: string;
 
   @Prop({ type: RatingSchema })
-  ratingInfo: RatingInfo;
+  ratingInfo: Rating;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
