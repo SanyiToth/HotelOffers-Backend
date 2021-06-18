@@ -55,9 +55,6 @@ export class Product {
   @Prop({ type: [String] })
   images: string[];
 
-  @Prop()
-  providerId: number;
-
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: "Provider" })
   provider: Types.ObjectId;
 
