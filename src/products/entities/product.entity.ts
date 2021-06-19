@@ -49,7 +49,7 @@ export class Product {
   @Prop()
   availableOffers: number;
 
-  @Prop()
+  @Prop({ min: [0, 'Negative values are not supported'], default: 0 })
   price: number;
 
   @Prop({ type: [String] })
