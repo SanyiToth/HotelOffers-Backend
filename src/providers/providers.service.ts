@@ -25,10 +25,8 @@ export class ProvidersService {
     return await this.findProvider(id);
   }
 
-  async findOneByUsername(username: string): Promise<Provider | undefined> {
-    return this.providerModel.findOne(
-      (provider: Provider) => provider.username === username,
-    );
+  async findOneByUsername(username: string): Promise<Provider> {
+    return await this.providerModel.findOne({ username: username }).exec();
   }
 
   update(id: number, updateProviderDto: UpdateProviderDto) {
