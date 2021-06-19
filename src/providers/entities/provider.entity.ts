@@ -41,7 +41,7 @@ export class Provider {
   @Prop()
   phone: string;
 
-  @Prop({ type: [String], default: [] })
+  @Prop({ type: [String], default: ['cash'] })
   paymentMethods: string[];
 
   @Prop({ required: true })
