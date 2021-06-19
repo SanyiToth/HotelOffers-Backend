@@ -1,0 +1,18 @@
+{
+  "name":"hotel1",
+  "address":{
+    "city":"Budapest",
+    "streetName":"Kő utca",
+    "streetNumber":"25",
+    "postalCode":1139,
+    "country":"Hungary"
+  },
+  "email":"hotel1@asd.hu",
+  "classification":4,
+  "paymentMethods":[
+    "cahs",
+    "credit card"
+  ],
+  "username":"hotel1",
+  "password":"asd123"
+}

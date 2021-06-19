@@ -1,5 +1,5 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Document } from "mongoose";
 
 
 @Schema()
@@ -19,6 +19,7 @@ export class Address extends Document {
   @Prop({ required: true })
   country: string;
 }
+
 export const AddressSchema = SchemaFactory.createForClass(Address);
 
 export type ProviderDocument = Provider & Document;
@@ -33,6 +34,21 @@ export class Provider {
 
   @Prop()
   classification: number;
+
+  @Prop({ required: true })
+  email: string;
+
+  @Prop()
+  phone: string;
+
+  @Prop({ type: [String], default: ['cash'] })
+  paymentMethods: string[];
+
+  @Prop({ required: true })
+  username: string;
+
+  @Prop({ required: true })
+  password: string;
 }
 
 export const ProviderSchema = SchemaFactory.createForClass(Provider);
