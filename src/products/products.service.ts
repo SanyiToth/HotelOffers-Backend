@@ -21,7 +21,7 @@ export class ProductsService {
     return await this.productModel.find().exec();
   }
 
-  async findOne(id: string): Promise<Product> {
+  async findOne(id: string): Promise<Product | undefined> {
     return await this.findProduct(id);
   }
 

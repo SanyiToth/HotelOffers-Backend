@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProviderDto } from './dto/create-provider.dto';
 import { UpdateProviderDto } from './dto/update-provider.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -21,8 +21,14 @@ export class ProvidersService {
     return await this.providerModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} provider`;
+  async findOne(id: string): Promise<Provider | undefined> {
+    return await this.findProvider(id);
+  }
+
+  async findOneByUsername(username: string): Promise<Provider | undefined> {
+    return this.providerModel.findOne(
+      (provider: Provider) => provider.username === username,
+    );
   }
 
   update(id: number, updateProviderDto: UpdateProviderDto) {
@@ -31,5 +37,22 @@ export class ProvidersService {
 
   remove(id: number) {
     return `This action removes a #${id} provider`;
+  }
+
+  private async findProvider(id: string) {
+    let provider;
+
+    try {
+      provider = await this.providerModel.findById(id).exec();
+    } catch (error) {
+      console.log('error', error);
+      throw new NotFoundException('Could not find provider!');
+    }
+
+    if (!provider) {
+      throw new NotFoundException('Could not find provider!');
+    }
+
+    return provider;
   }
 }
