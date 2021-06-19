@@ -1,0 +1,27 @@
+{
+  "status":"Active",
+  "heading":"Offer1",
+  "details":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. In vitae justo pulvinar, finibus ante in, viverra mauris.",
+  "dateInterval":{
+    "startDate":"2022-08-23",
+    "endDate":"2022-09-01"
+  },
+  "availableOffers":5,
+  "price":140000,
+  "images":[
+    "https://picsum.photos/id/237/400/200",
+    "https://picsum.photos/id/233/400/200",
+    "https://picsum.photos/id/220/400/200",
+    "https://picsum.photos/id/211/400/200"
+  ],
+  "description":"Donec sit amet porta nibh. Ut fringilla justo massa, vel luctus erat vestibulum ut. Vivamus ac mauris non turpis scelerisque scelerisque. Vestibulum et accumsan neque, eget ultrices metus. Quisque a aliquam nunc. Etiam varius quam diam, eu consectetur augue tempus id. In tincidunt quam ante, a viverra lacus ultricies non. Integer porttitor enim sed ipsum rhoncus, sit amet convallis tellus maximus. Nullam maximus ultrices urna, non feugiat turpis iaculis in. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean ligula elit, ultricies et nisi ut, finibus euismod nibh. Nunc convallis cursus ex ac congue. Quisque consectetur fermentum mollis. Quisque tincidunt mattis nunc eu dictum. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  "tags":[
+    "wifi",
+    "free parking"
+  ],
+  "ratingInfo":{
+    "rating":5,
+    "numberOfRatings":25
+  },
+  "provider":"60cb994e5a8d2a12fcbf0952"
+}
