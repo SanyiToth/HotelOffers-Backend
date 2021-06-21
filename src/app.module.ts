@@ -10,10 +10,10 @@ import { OrdersModule } from './orders/orders.module';
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.DB_CONNECTION, { autoCreate: true }),
-    AuthModule,
     ProductsModule,
     ProvidersModule,
     OrdersModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
