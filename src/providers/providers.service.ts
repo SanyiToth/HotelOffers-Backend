@@ -18,7 +18,7 @@ export class ProvidersService {
   }
 
   async findAll(): Promise<Provider[]> {
-    return await this.providerModel.find().exec();
+    return this.providerModel.find().select('-password').select('-username');
   }
 
   async findOne(id: string): Promise<Provider | undefined> {
@@ -41,7 +41,10 @@ export class ProvidersService {
     let provider;
 
     try {
-      provider = await this.providerModel.findById(id).exec();
+      provider = await this.providerModel
+        .findById(id)
+        .select('-password')
+        .select('-username');
     } catch (error) {
       console.log('error', error);
       throw new NotFoundException('Could not find provider!');
