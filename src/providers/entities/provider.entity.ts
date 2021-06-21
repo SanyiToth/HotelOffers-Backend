@@ -35,7 +35,7 @@ export class Provider {
   @Prop()
   classification: number;
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   email: string;
 
   @Prop()
@@ -44,10 +44,10 @@ export class Provider {
   @Prop({ type: [String], default: ['cash'] })
   paymentMethods: string[];
 
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true, select: false })
   username: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, select: false })
   password: string;
 }
 

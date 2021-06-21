@@ -41,7 +41,7 @@ export class ProvidersService {
     let provider;
 
     try {
-      provider = await this.providerModel.findById(id).exec();
+      provider = await this.providerModel.findById(id);
     } catch (error) {
       console.log('error', error);
       throw new NotFoundException('Could not find provider!');
