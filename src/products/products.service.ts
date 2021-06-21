@@ -21,6 +21,10 @@ export class ProductsService {
     return await this.productModel.find().exec();
   }
 
+  async findByProviderId(id: string): Promise<Product[]> {
+    return await this.productModel.find({ provider: id }).exec();
+  }
+
   async findOne(id: string): Promise<Product | undefined> {
     return await this.findProduct(id);
   }
