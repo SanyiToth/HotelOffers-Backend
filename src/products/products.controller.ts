@@ -6,10 +6,13 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { Product } from './entities/product.entity';
+import { Provider } from '../providers/entities/provider.entity';
 
 @Controller('products')
 export class ProductsController {
@@ -23,6 +26,12 @@ export class ProductsController {
   @Get()
   findAll() {
     return this.productsService.findAll();
+  }
+
+  @Get('findByProviderId/:id')
+  findByProviderId(@Param('id') id: string): Promise<Product[]> {
+    console.log('providerId: ', id);
+    return this.productsService.findByProviderId(id);
   }
 
   @Get(':id')
