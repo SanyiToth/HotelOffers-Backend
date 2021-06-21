@@ -2,34 +2,38 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types, Schema as MongooseSchema } from 'mongoose';
 
 export enum Status {
-  Active = 'Active',
-  Cancelled = 'Cancelled',
-  Pending = 'Pending',
+  NEW = 'NEW',
+  ACCEPTED = 'ACCEPTED',
+  CANCELLED = 'CANCELLED',
+  FULFILLED = 'FULFILLED',
 }
+
+@Schema()
+export class Customer {
+  @Prop({ required: true })
+  name: string;
+
+  @Prop({ required: true })
+  email: string;
+
+  @Prop({ required: true })
+  phone: string;
+}
+
+export const CustomerSchema = SchemaFactory.createForClass(Customer);
 
 export type OrderDocument = Order & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Order {
-  @Prop({ enum: ['Active', 'Cancelled', 'Pending'] })
+  @Prop({ enum: ['NEW', 'ACCEPTED', 'CANCELLED', 'FULFILLED'] })
   status: Status;
-
-  @Prop({ required: true })
-  heading: string;
-
-  @Prop({ required: true })
-  details: string;
-
-  @Prop({ min: [0, 'Negative values are not supported'], default: 0 })
-  price: number;
-
-  @Prop({ type: [String] })
-  images: string[];
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Provider',
     required: true,
+    default: Status.NEW,
   })
   provider: Types.ObjectId;
 
@@ -37,7 +41,10 @@ export class Order {
   product: Types.ObjectId;
 
   @Prop()
-  comments: string;
+  note: string;
+
+  @Prop({ type: CustomerSchema, required: true })
+  customer: Customer;
 }
 
 export const OrderSchema = SchemaFactory.createForClass(Order);
