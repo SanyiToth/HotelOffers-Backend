@@ -1,0 +1,22 @@
+image: node:latest
+
+before_script:
+  - apt-get update -qy
+  - apt-get install -y ruby-dev
+  - gem install dpl
+
+stages:
+  - production
+
+production:
+  type: deploy
+  stage: production
+  image: ruby:latest
+  script:
+    - echo DB_CONNECTION=$API_URL_test >> .env
+    - npm run prebuild
+    - npm run build
+    - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_API_KEY
+  only:
+    - master
+    - setup-gitlab-ci-and-heroku-deploy
