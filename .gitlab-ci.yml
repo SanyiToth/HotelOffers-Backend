@@ -17,7 +17,7 @@ production:
   script:
     - echo DB_CONNECTION=$API_URL_test >> .env
     - pwd
-    - sudo apt-get install nodejs
+    - apt-get install -y nodejs
     - node -v
     - npm run prebuild
     - npm run build
