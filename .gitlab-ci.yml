@@ -1,4 +1,4 @@
-image: node:latest
+image: ruby:latest
 
 before_script:
   - apt-get update -qy
@@ -8,12 +8,17 @@ before_script:
 stages:
   - production
 
+cache:
+  paths:
+    - node_modules/
+
 production:
-  type: deploy
   stage: production
-  image: ruby:latest
   script:
     - echo DB_CONNECTION=$API_URL_test >> .env
+    - pwd
+    - sudo apt install nodejs
+    - node -v
     - npm run prebuild
     - npm run build
     - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_API_KEY
