@@ -1,10 +1,10 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, Types, Schema as MongooseSchema } from "mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types, Schema as MongooseSchema } from 'mongoose';
 
 export enum Status {
-  Active = "Active",
-  Deactivated = "Deactivated",
-  Archived = "Archived",
+  Active = 'Active',
+  Deactivated = 'Deactivated',
+  Archived = 'Archived',
 }
 
 @Schema()
@@ -17,6 +17,29 @@ export class DateInterval {
 }
 
 export const DateIntervalSchema = SchemaFactory.createForClass(DateInterval);
+
+@Schema()
+export class Image {
+  @Prop({ required: true })
+  link: string;
+
+  @Prop()
+  height: number;
+
+  @Prop()
+  width: number;
+
+  @Prop()
+  type: string;
+
+  @Prop()
+  size: number;
+
+  @Prop()
+  imgId: string; //imgur id
+}
+
+export const ImageSchema = SchemaFactory.createForClass(Image);
 
 @Schema()
 export class Rating {
@@ -33,8 +56,7 @@ export type ProductDocument = Product & Document;
 
 @Schema()
 export class Product {
-
-  @Prop({ enum: ["Active", "Deactivated", "Archived"] })
+  @Prop({ enum: ['Active', 'Deactivated', 'Archived'] })
   status: Status;
 
   @Prop({ required: true })
@@ -52,10 +74,10 @@ export class Product {
   @Prop({ min: [0, 'Negative values are not supported'], default: 0 })
   price: number;
 
-  @Prop({ type: [String] })
-  images: string[];
+  @Prop({ type: [ImageSchema] })
+  images: Image[];
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: "Provider" })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Provider' })
   provider: Types.ObjectId;
 
   @Prop()
