@@ -8,9 +8,9 @@ import {
   Delete,
   UseGuards,
 } from '@nestjs/common';
-import { ProvidersService } from './providers.service';
-import { UpdateProviderDto } from './dto/update-provider.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { ProvidersService } from '../providers.service';
+import { UpdateProviderDto } from '../dto/update-provider.dto';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 
 @Controller('profile')
 export class ProvidersAccountSettingsController {
