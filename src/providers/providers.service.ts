@@ -26,7 +26,10 @@ export class ProvidersService {
   }
 
   async findOneByUsername(username: string): Promise<Provider> {
-    return await this.providerModel.findOne({ username: username }).exec();
+    return await this.providerModel
+      .findOne({ username: username })
+      .select(['+username', '+password'])
+      .exec();
   }
 
   update(id: number, updateProviderDto: UpdateProviderDto) {
