@@ -7,11 +7,13 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { ProvidersService } from './providers.service';
 import { CreateProviderDto } from './dto/create-provider.dto';
 import { UpdateProviderDto } from './dto/update-provider.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { QueryOptions } from 'mongoose';
 
 @Controller('providers')
 export class ProvidersController {
@@ -23,8 +25,8 @@ export class ProvidersController {
   }
 
   @Get()
-  findAll() {
-    return this.providersService.findAll();
+  findAll(@Query() query) {
+    return this.providersService.findAll(query);
   }
 
   @Get(':id')
@@ -47,4 +49,3 @@ export class ProvidersController {
     return this.providersService.remove(+id);
   }
 }
-

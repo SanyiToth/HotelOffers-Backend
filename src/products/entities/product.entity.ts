@@ -74,7 +74,7 @@ export class Product {
   @Prop({ min: [0, 'Negative values are not supported'], default: 0 })
   price: number;
 
-  @Prop({ type: [ImageSchema] })
+  @Prop({ type: [ImageSchema], default: [] })
   images: Image[];
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Provider' })

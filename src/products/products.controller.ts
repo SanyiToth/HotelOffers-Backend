@@ -23,8 +23,8 @@ export class ProductsController {
   }
 
   @Get()
-  findAll() {
-    return this.productsService.findAll();
+  findAll(@Query() query) {
+    return this.productsService.findAll(query);
   }
 
   @Get('findByProviderId/:id')
