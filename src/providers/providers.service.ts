@@ -21,8 +21,11 @@ export class ProvidersService {
     return await this.providerModel.find(query).exec();
   }
 
-  async findOne(id: string): Promise<Provider | undefined> {
-    return await this.findProvider(id);
+  async findOne(
+    id: string,
+    exposeUsername = false,
+  ): Promise<Provider | undefined> {
+    return await this.findProvider(id, exposeUsername);
   }
 
   async findOneByUsername(username: string): Promise<Provider> {
@@ -32,19 +35,26 @@ export class ProvidersService {
       .exec();
   }
 
-  update(id: number, updateProviderDto: UpdateProviderDto) {
-    return `This action updates a #${id} provider`;
+  update(id: string, updateProviderDto: UpdateProviderDto) {
+    return this.providerModel.findByIdAndUpdate(id, updateProviderDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} provider`;
+  remove(id: string) {
+    return this.providerModel.findByIdAndDelete(id);
   }
 
-  private async findProvider(id: string) {
+  private async findProvider(id: string, exposeUsername = false) {
     let provider;
 
     try {
-      provider = await this.providerModel.findById(id);
+      if (exposeUsername) {
+        provider = await this.providerModel
+          .findById(id)
+          .select(['+username'])
+          .exec();
+      } else {
+        provider = await this.providerModel.findById(id);
+      }
     } catch (error) {
       throw new NotFoundException('Could not find provider!');
     }

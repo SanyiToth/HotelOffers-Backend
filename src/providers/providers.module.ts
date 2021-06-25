@@ -3,7 +3,7 @@ import { ProvidersService } from './providers.service';
 import { ProvidersController } from './providers.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Provider, ProviderSchema } from './entities/provider.entity';
-import { AuthService } from '../auth/auth.service';
+import { ProvidersAccountSettingsController } from './providers-account-settings.controller';
 
 @Module({
   imports: [
@@ -11,7 +11,7 @@ import { AuthService } from '../auth/auth.service';
       { name: Provider.name, schema: ProviderSchema },
     ]),
   ],
-  controllers: [ProvidersController],
+  controllers: [ProvidersController, ProvidersAccountSettingsController],
   providers: [ProvidersService],
   exports: [ProvidersService],
 })
