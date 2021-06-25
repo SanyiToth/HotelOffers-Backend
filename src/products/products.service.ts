@@ -4,12 +4,15 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product, ProductDocument } from './entities/product.entity';
+import { ProvidersService } from '../providers/providers.service';
+import { Provider } from '../providers/entities/provider.entity';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectModel(Product.name)
     private readonly productModel: Model<ProductDocument>,
+    private readonly providersService: ProvidersService,
   ) {}
 
   create(createProductDto: CreateProductDto) {
@@ -18,7 +21,30 @@ export class ProductsService {
   }
 
   async findAll(query): Promise<Product[]> {
-    return await this.productModel.find(query).exec();
+    if (query.hasOwnProperty('city')) {
+      return await this.extracted(query);
+    }
+
+    return await this.productModel.find(query).populate('provider');
+  }
+
+  private async extracted(query): Promise<Product[]> {
+    const providersOfCity: Provider[] = await this.providersService.findAll({
+      'address.city': query.city,
+    });
+
+    const queries = [];
+    providersOfCity.forEach((provider) => {
+      //console.log("_p id", provider['_id']);
+      queries.push(this.findPopulated(provider['_id']));
+    });
+
+    return Promise.all(queries)
+      .then((results) => {
+        return results.reduce((acc, curr) => {
+          return [...acc, ...curr];
+        });
+      });
   }
 
   async findByProviderId(id: string): Promise<Product[]> {
@@ -37,6 +63,13 @@ export class ProductsService {
     }
 
     return await product.save();
+  }
+
+  private async findPopulated(providerId: string): Promise<Product[]> {
+    return await this.productModel
+      .find({ provider: providerId })
+      .populate('provider')
+      .exec();
   }
 
   async remove(id: string) {
