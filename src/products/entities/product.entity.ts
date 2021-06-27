@@ -80,7 +80,11 @@ export class Product {
   @Prop({ type: [ImageSchema], default: [] })
   images: Image[];
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Provider' })
+  @Prop({
+    required: true,
+    type: MongooseSchema.Types.ObjectId,
+    ref: 'Provider',
+  })
   provider: Types.ObjectId;
 
   @Prop()
