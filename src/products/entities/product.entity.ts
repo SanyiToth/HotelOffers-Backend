@@ -56,7 +56,10 @@ export type ProductDocument = Product & Document;
 
 @Schema()
 export class Product {
-  @Prop({ enum: ['Active', 'Deactivated', 'Archived'] })
+  @Prop({
+    enum: ['Active', 'Deactivated', 'Ended', 'Deleted', 'Draft'],
+    defult: Status.Active,
+  })
   status: Status;
 
   @Prop({ required: true })
@@ -84,7 +87,7 @@ export class Product {
   description: string;
 
   @Prop({ type: [String], default: [] })
-  tags: string;
+  tags: string[];
 
   @Prop({ type: RatingSchema })
   ratingInfo: Rating;
