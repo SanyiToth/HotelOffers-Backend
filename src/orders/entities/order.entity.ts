@@ -26,14 +26,16 @@ export type OrderDocument = Order & Document;
 
 @Schema({ timestamps: true })
 export class Order {
-  @Prop({ enum: ['NEW', 'ACCEPTED', 'CANCELLED', 'FULFILLED'] })
+  @Prop({
+    enum: [Status.NEW, Status.ACCEPTED, Status.CANCELLED, Status.FULFILLED],
+    default: Status.NEW,
+  })
   status: Status;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
     ref: 'Provider',
     required: true,
-    default: Status.NEW,
   })
   provider: Types.ObjectId;
 
