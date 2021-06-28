@@ -1,10 +1,10 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, Types, Schema as MongooseSchema } from "mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types, Schema as MongooseSchema } from 'mongoose';
 
 export enum Status {
-  Active = "Active",
-  Deactivated = "Deactivated",
-  Archived = "Archived",
+  Active = 'Active',
+  Deactivated = 'Deactivated',
+  Archived = 'Archived',
 }
 
 @Schema()
@@ -60,8 +60,8 @@ export type ProductDocument = Product & Document;
 @Schema()
 export class Product {
   @Prop({
-    enum: ["Active", "Deactivated", "Ended", "Deleted", "Draft"],
-    defult: Status.Active
+    enum: ['Active', 'Deactivated', 'Ended', 'Deleted', 'Draft'],
+    defult: Status.Active,
   })
   status: Status;
 
@@ -77,7 +77,7 @@ export class Product {
   @Prop()
   availableOffers: number;
 
-  @Prop({ min: [0, "Negative values are not supported"], default: 0 })
+  @Prop({ min: [0, 'Negative values are not supported'], default: 0 })
   price: number;
 
   @Prop({ type: [ImageSchema], default: [] })
@@ -86,7 +86,7 @@ export class Product {
   @Prop({
     required: true,
     type: MongooseSchema.Types.ObjectId,
-    ref: "Provider"
+    ref: 'Provider',
   })
   provider: Types.ObjectId;
 
