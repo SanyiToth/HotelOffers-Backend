@@ -3,10 +3,10 @@ import { ProviderLocationsService } from './provider-locations.service';
 
 @Controller('locations')
 export class ProvidersLocationsController {
-  constructor(private readonly locaationsService: ProviderLocationsService) {}
+  constructor(private readonly locationsService: ProviderLocationsService) {}
 
   @Get()
   findAll() {
-    return this.locaationsService.getLocations();
+    return this.locationsService.getLocations();
   }
 }
