@@ -17,8 +17,8 @@ export class OrdersService {
     return created.save();
   }
 
-  async findAll(): Promise<Order[]> {
-    return await this.model.find().exec();
+  async findAll(query): Promise<Order[]> {
+    return await this.model.find(query).exec();
   }
 
   findOne(id: string): Promise<Order> {
