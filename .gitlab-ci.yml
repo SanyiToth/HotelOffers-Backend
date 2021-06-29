@@ -1,9 +1,4 @@
-image: ruby:latest
-
-before_script:
-  - apt-get update -qy
-  - apt-get install -y ruby-dev
-  - gem install dpl
+image: node:14-alpine
 
 stages:
   - deploy
@@ -14,13 +9,14 @@ cache:
 
 heroku-deploy:
   stage: deploy
+  image: ruby:latest
   script:
     - echo 'Heroku deployment'
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
     - echo DB_CONNECTION=$API_URL_test >> .env
-    - sudo dnf install -y gcc-c++ make
-    - curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -
-    - sudo dnf install nodejs
-    - sudo dnf install npm
+    - gem install node
     - node -v
     - npm -v
     - npm i -g @nestjs/cli
