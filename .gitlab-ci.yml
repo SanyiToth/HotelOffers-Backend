@@ -6,15 +6,16 @@ before_script:
   - gem install dpl
 
 stages:
-  - production
+  - deploy
 
 cache:
   paths:
     - node_modules/
 
 production:
-  stage: production
+  stage: deploy
   script:
+    - echo 'Heroku deployment'
     - echo DB_CONNECTION=$API_URL_test >> .env
     - pwd
     - apt-get install -y nodejs npm
