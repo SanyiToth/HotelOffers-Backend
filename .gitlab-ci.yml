@@ -17,4 +17,3 @@ heroku-deploy:
     - echo "Deployed to heroku server"
   only:
     - master
-    - setup-gitlab-ci-and-heroku-deploy
