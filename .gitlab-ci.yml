@@ -7,6 +7,11 @@ stages:
   - deploy
 
 
+before_script:
+  - apt-get update -qy
+  - apt-get install -y ruby-dev
+  - gem install dpl
+
 cache:
   paths:
     - node_modules/
@@ -37,14 +42,13 @@ build:
 
 heroku-deploy:
   stage: deploy
+  type: deploy
+  image: ruby:latest
   dependencies:
     - build
   script:
-    - git push https://$HEROKU_USER:$HEROKU_API_KEY@git.heroku.com/hotel-offers1-backend.git HEAD:master
-      - echo "Deployed to heroku server"
-  environment:
-    name: prod
-    url: https://hotel-offers1-backend.herokuapp.com/
+    - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_API_KEY
+    - echo "Deployed to heroku server"
   only:
     - master
     - setup-gitlab-ci-and-heroku-deploy
