@@ -14,7 +14,6 @@ heroku-deploy:
     - echo 'Heroku deployment'
     - apt-get update -qy
     - apt-get install -y ruby-dev
-    - gem install dpl
     - echo DB_CONNECTION=$API_URL_test >> .env
     - gem install node
     - node -v
@@ -22,6 +21,7 @@ heroku-deploy:
     - npm i -g @nestjs/cli
     - npm run prebuild
     - npm run build
+    - gem install dpl
     - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_API_KEY
   only:
     - master
