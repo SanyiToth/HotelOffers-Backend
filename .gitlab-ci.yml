@@ -15,7 +15,7 @@ heroku-deploy:
     - apt-get update -qy
     - apt-get install -y ruby-dev
     - echo DB_CONNECTION=$API_URL_test >> .env
-    - gem install node
+    - gem install node npm
     - node -v
     - npm -v
     - npm i -g @nestjs/cli
