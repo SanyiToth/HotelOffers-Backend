@@ -3,8 +3,10 @@ import { Document, Types, Schema as MongooseSchema } from 'mongoose';
 
 export enum Status {
   Active = 'Active',
-  Deactivated = 'Deactivated',
-  Archived = 'Archived',
+  Inactive = 'Inactive',
+  Ended = 'Ended',
+  Deleted = 'Deleted',
+  Draft = 'Draft',
 }
 
 @Schema()
@@ -17,6 +19,32 @@ export class DateInterval {
 }
 
 export const DateIntervalSchema = SchemaFactory.createForClass(DateInterval);
+
+@Schema()
+export class Image {
+  @Prop({ required: true })
+  link: string;
+
+  @Prop()
+  height: number;
+
+  @Prop()
+  width: number;
+
+  @Prop()
+  type: string;
+
+  @Prop()
+  size: number;
+
+  @Prop()
+  deletehash: string;
+
+  @Prop()
+  imgId: string; //imgur id
+}
+
+export const ImageSchema = SchemaFactory.createForClass(Image);
 
 @Schema()
 export class Rating {
@@ -33,7 +61,10 @@ export type ProductDocument = Product & Document;
 
 @Schema()
 export class Product {
-  @Prop({ enum: ['Active', 'Deactivated', 'Archived'] })
+  @Prop({
+    enum: ['Active', 'Inactive', 'Ended', 'Deleted', 'Draft'],
+    defult: Status.Draft,
+  })
   status: Status;
 
   @Prop({ required: true })
@@ -51,17 +82,21 @@ export class Product {
   @Prop({ min: [0, 'Negative values are not supported'], default: 0 })
   price: number;
 
-  @Prop({ type: [String] })
-  images: string[];
+  @Prop({ type: [ImageSchema], default: [] })
+  images: Image[];
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Provider' })
+  @Prop({
+    required: true,
+    type: MongooseSchema.Types.ObjectId,
+    ref: 'Provider',
+  })
   provider: Types.ObjectId;
 
   @Prop()
   description: string;
 
   @Prop({ type: [String], default: [] })
-  tags: string;
+  tags: string[];
 
   @Prop({ type: RatingSchema })
   ratingInfo: Rating;
