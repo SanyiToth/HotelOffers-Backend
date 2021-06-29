@@ -16,8 +16,10 @@ production:
   stage: deploy
   script:
     - echo 'Heroku deployment'
+    - lsb_release -a
+    - uname -r
     - echo DB_CONNECTION=$API_URL_test >> .env
-    - pwd
+    - curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
     - apt-get install -y nodejs npm
     - node -v
     - npm i -g @nestjs/cli
