@@ -1,44 +1,12 @@
 image: node:latest
 
 stages:
-#  - init
-#  - lint
-# - build
   - deploy
-
 
 before_script:
   - apt-get update -qy
   - apt-get install -y ruby-dev
   - gem install dpl
-
-#cache:
-#  paths:
-#    - node_modules/
-
-init:
-  stage: init
-  script:
-    - node -v
-    - npm -v
-    - npm i -g @nestjs/cli
-    - npm i --silent
-
-lint:
-  stage: lint
-  dependencies:
-    - init
-  script:
-    - npm run lint
-
-build:
-  stage: build
-  dependencies:
-    - init
-  script:
-    - echo DB_CONNECTION=$API_URL_test >> .env
-    - npm run prebuild
-    - npm run build
 
 heroku-deploy:
   stage: deploy
