@@ -1,0 +1,19 @@
+image: node:latest
+
+stages:
+  - deploy
+
+before_script:
+  - apt-get update -qy
+  - apt-get install -y ruby-dev
+  - gem install dpl
+
+heroku-deploy:
+  stage: deploy
+  type: deploy
+  image: ruby:latest
+  script:
+    - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_API_KEY
+    - echo "Deployed to heroku server"
+  only:
+    - master

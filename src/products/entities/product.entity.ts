@@ -3,8 +3,10 @@ import { Document, Types, Schema as MongooseSchema } from 'mongoose';
 
 export enum Status {
   Active = 'Active',
-  Deactivated = 'Deactivated',
-  Archived = 'Archived',
+  Inactive = 'Inactive',
+  Ended = 'Ended',
+  Deleted = 'Deleted',
+  Draft = 'Draft',
 }
 
 @Schema()
@@ -60,8 +62,8 @@ export type ProductDocument = Product & Document;
 @Schema()
 export class Product {
   @Prop({
-    enum: ['Active', 'Deactivated', 'Ended', 'Deleted', 'Draft'],
-    defult: Status.Active,
+    enum: ['Active', 'Inactive', 'Ended', 'Deleted', 'Draft'],
+    defult: Status.Draft,
   })
   status: Status;
 
