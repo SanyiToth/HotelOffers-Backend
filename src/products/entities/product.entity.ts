@@ -1,10 +1,10 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, Types, Schema as MongooseSchema } from "mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types, Schema as MongooseSchema } from 'mongoose';
 
 export enum Status {
-  Active = "Active",
-  Deactivated = "Deactivated",
-  Archived = "Archived",
+  Active = 'Active',
+  Deactivated = 'Deactivated',
+  Archived = 'Archived',
 }
 
 @Schema()
@@ -33,8 +33,7 @@ export type ProductDocument = Product & Document;
 
 @Schema()
 export class Product {
-
-  @Prop({ enum: ["Active", "Deactivated", "Archived"] })
+  @Prop({ enum: ['Active', 'Deactivated', 'Archived'] })
   status: Status;
 
   @Prop({ required: true })
@@ -55,7 +54,7 @@ export class Product {
   @Prop({ type: [String] })
   images: string[];
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: "Provider" })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Provider' })
   provider: Types.ObjectId;
 
   @Prop()
