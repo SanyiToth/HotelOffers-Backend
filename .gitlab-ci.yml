@@ -16,7 +16,6 @@ production:
   stage: deploy
   script:
     - echo 'Heroku deployment'
-    - lsb_release -a
     - uname -r
     - echo DB_CONNECTION=$API_URL_test >> .env
     - apt install curl
