@@ -1,28 +1,50 @@
 image: node:14-alpine
 
 stages:
+  - init
+  - lint
+  - build
   - deploy
+
 
 cache:
   paths:
     - node_modules/
 
-heroku-deploy:
-  stage: deploy
-  image: ruby:latest
+init:
+  stage: init
   script:
-    - echo 'Heroku deployment'
-    - apt-get update -qy
-    - apt-get install -y ruby-dev
-    - echo DB_CONNECTION=$API_URL_test >> .env
-    - dnf module install nodejs:14
     - node -v
     - npm -v
     - npm i -g @nestjs/cli
+    - npm i --silent
+
+lint:
+  stage: lint
+  dependencies:
+    - init
+  script:
+    - npm run lint
+
+build:
+  stage: build
+  dependencies:
+    - init
+  script:
+    - echo DB_CONNECTION=$API_URL_test >> .env
     - npm run prebuild
     - npm run build
-    - gem install dpl
-    - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_API_KEY
+
+heroku-deploy:
+  stage: deploy
+  dependencies:
+    - build
+  script:
+    - git push https://$HEROKU_USER:$HEROKU_API_KEY@git.heroku.com/hotel-offers1-backend.git HEAD:master
+      - echo "Deployed to heroku server"
+  environment:
+    name: prod
+    url: https://hotel-offers1-backend.herokuapp.com/
   only:
     - master
     - setup-gitlab-ci-and-heroku-deploy
