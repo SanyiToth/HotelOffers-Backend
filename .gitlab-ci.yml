@@ -12,16 +12,17 @@ cache:
   paths:
     - node_modules/
 
-production:
+heroku-deploy:
   stage: deploy
   script:
     - echo 'Heroku deployment'
-    - uname -r
     - echo DB_CONNECTION=$API_URL_test >> .env
-    - apt install curl
-    - curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
-    - apt-get install -y nodejs npm
+    - sudo dnf install -y gcc-c++ make
+    - curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -
+    - sudo dnf install nodejs
+    - sudo dnf install npm
     - node -v
+    - npm -v
     - npm i -g @nestjs/cli
     - npm run prebuild
     - npm run build
