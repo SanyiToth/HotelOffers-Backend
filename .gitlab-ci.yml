@@ -19,6 +19,7 @@ production:
     - lsb_release -a
     - uname -r
     - echo DB_CONNECTION=$API_URL_test >> .env
+    - apt install curl
     - curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -
     - apt-get install -y nodejs npm
     - node -v
