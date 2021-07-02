@@ -48,7 +48,10 @@ export class ProductsService {
   }
 
   async findByProviderId(id: string, status: Status): Promise<Product[]> {
-    return await this.productModel.find({ provider: id, status }).exec();
+    if (status) {
+      return await this.productModel.find({ provider: id, status }).exec();
+    }
+    return await this.productModel.find({ provider: id }).exec();
   }
 
   async findOne(id: string): Promise<Product | undefined> {

@@ -32,8 +32,6 @@ export class ProductsController {
     @Param('id') id: string,
     @Query('status') status: Status,
   ): Promise<Product[]> {
-    console.log('providerId: ', id);
-    console.log('status: ', status);
     return this.productsService.findByProviderId(id, status);
   }
 
