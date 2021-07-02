@@ -3,7 +3,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Product, ProductDocument } from './entities/product.entity';
+import { Product, ProductDocument, Status } from './entities/product.entity';
 import { ProvidersService } from '../providers/providers.service';
 import { Provider } from '../providers/entities/provider.entity';
 
@@ -47,8 +47,8 @@ export class ProductsService {
       });
   }
 
-  async findByProviderId(id: string): Promise<Product[]> {
-    return await this.productModel.find({ provider: id }).exec();
+  async findByProviderId(id: string, status: Status): Promise<Product[]> {
+    return await this.productModel.find({ provider: id, status }).exec();
   }
 
   async findOne(id: string): Promise<Product | undefined> {

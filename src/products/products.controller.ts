@@ -11,7 +11,7 @@ import {
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { Product } from './entities/product.entity';
+import { Product, Status } from './entities/product.entity';
 
 @Controller('offers')
 export class ProductsController {
@@ -28,9 +28,13 @@ export class ProductsController {
   }
 
   @Get('findByProviderId/:id')
-  findByProviderId(@Param('id') id: string): Promise<Product[]> {
+  findByProviderId(
+    @Param('id') id: string,
+    @Query('status') status: Status,
+  ): Promise<Product[]> {
     console.log('providerId: ', id);
-    return this.productsService.findByProviderId(id);
+    console.log('status: ', status);
+    return this.productsService.findByProviderId(id, status);
   }
 
   @Get(':id')
