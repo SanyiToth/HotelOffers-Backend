@@ -39,12 +39,11 @@ export class ProductsService {
       queries.push(this.findPopulated(provider['_id']));
     });
 
-    return Promise.all(queries)
-      .then((results) => {
-        return results.reduce((acc, curr) => {
-          return [...acc, ...curr];
-        });
+    return Promise.all(queries).then((results) => {
+      return results.reduce((acc, curr) => {
+        return [...acc, ...curr];
       });
+    });
   }
 
   async findByProviderId(id: string, status: Status): Promise<Product[]> {
