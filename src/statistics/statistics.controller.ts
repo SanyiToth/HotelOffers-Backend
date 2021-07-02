@@ -7,7 +7,6 @@ export class StatisticsController {
 
   @Get()
   getAll() {
-    console.log('stat');
     return this.statsService.getAll();
   }
 }
