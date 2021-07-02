@@ -6,6 +6,7 @@ import { Provider, ProviderSchema } from './entities/provider.entity';
 import { ProvidersAccountSettingsController } from './account-settings/providers-account-settings.controller';
 import { ProvidersLocationsController } from './locations/providers-locations.controller';
 import { ProviderLocationsService } from './locations/provider-locations.service';
+import { ProviderStatisticsService } from './statistics/provider-statistics.service';
 
 @Module({
   imports: [
@@ -18,7 +19,11 @@ import { ProviderLocationsService } from './locations/provider-locations.service
     ProvidersAccountSettingsController,
     ProvidersLocationsController,
   ],
-  providers: [ProvidersService, ProviderLocationsService],
-  exports: [ProvidersService],
+  providers: [
+    ProvidersService,
+    ProviderLocationsService,
+    ProviderStatisticsService,
+  ],
+  exports: [ProvidersService, ProviderStatisticsService],
 })
 export class ProvidersModule {}
