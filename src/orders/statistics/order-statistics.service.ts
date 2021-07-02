@@ -11,6 +11,6 @@ export class OrderStatisticsService {
   ) {}
 
   async getOrdersCount(): Promise<number> {
-    return await this.model.find().count().exec();
+    return await this.model.find().countDocuments().exec();
   }
 }

@@ -11,6 +11,6 @@ export class ProductStatisticsService {
   ) {}
 
   async getProductCount(): Promise<number> {
-    return await this.productModel.find().count().exec();
+    return await this.productModel.find().countDocuments().exec();
   }
 }
