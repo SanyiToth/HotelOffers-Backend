@@ -1,11 +1,11 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, Types, Schema as MongooseSchema } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { Document, Types, Schema as MongooseSchema } from "mongoose";
 
 export enum Status {
-  NEW = 'NEW',
-  ACCEPTED = 'ACCEPTED',
-  CANCELLED = 'CANCELLED',
-  FULFILLED = 'FULFILLED',
+  NEW = "NEW",
+  ACCEPTED = "ACCEPTED",
+  CANCELLED = "CANCELLED",
+  FULFILLED = "FULFILLED",
 }
 
 @Schema()
@@ -28,22 +28,25 @@ export type OrderDocument = Order & Document;
 export class Order {
   @Prop({
     enum: [Status.NEW, Status.ACCEPTED, Status.CANCELLED, Status.FULFILLED],
-    default: Status.NEW,
+    default: Status.NEW
   })
   status: Status;
 
   @Prop({
     type: MongooseSchema.Types.ObjectId,
-    ref: 'Provider',
-    required: true,
+    ref: "Provider",
+    required: true
   })
   provider: Types.ObjectId;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'Product', required: true })
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: "Product", required: true })
   product: Types.ObjectId;
 
   @Prop()
   note: string;
+
+  @Prop()
+  payment: string;
 
   @Prop({ type: CustomerSchema, required: true })
   customer: Customer;
