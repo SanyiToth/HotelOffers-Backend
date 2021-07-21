@@ -10,7 +10,7 @@ import { StatisticsModule } from './statistics/statistics.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot('mongodb+srv://Test:fLaGGaVJdptagjAD@cluster0.7y5gc.mongodb.net/HotelOffersDatabase?retryWrites=true&w=majority', { autoCreate: true }),
+    MongooseModule.forRoot(process.env.DB_CONNECTION, { autoCreate: true }),
     ProductsModule,
     ProvidersModule,
     OrdersModule,
